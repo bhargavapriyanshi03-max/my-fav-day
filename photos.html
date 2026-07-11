@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Photos ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#fff;
+    color:#202124;
+}
+
+/* ---------- SEARCH PAGE ---------- */
+
+#searchPage{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.logo{
+    font-size:90px;
+    font-weight:bold;
+    margin-bottom:30px;
+    user-select:none;
+}
+
+.blue{color:#4285F4;}
+.red{color:#EA4335;}
+.yellow{color:#FBBC05;}
+.green{color:#34A853;}
+
+.searchBox{
+
+    width:700px;
+    max-width:90%;
+
+    display:flex;
+    align-items:center;
+
+    padding:14px 20px;
+
+    border:1px solid #dadce0;
+
+    border-radius:40px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+}
+
+.searchBox:hover{
+
+    box-shadow:0 2px 16px rgba(0,0,0,.18);
+
+}
+
+.searchBox input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    font-size:18px;
+
+    padding:0 15px;
+
+}
+
+.searchBox span{
+
+    font-size:20px;
+
+}
+
+.buttons{
+
+    margin-top:35px;
+
+}
+
+.buttons button{
+
+    padding:12px 22px;
+
+    margin:0 8px;
+
+    border:none;
+
+    background:#f8f9fa;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+.buttons button:hover{
+
+    border:1px solid #ddd;
+
+}
+
+/* ---------- Loading ---------- */
+
+#loading{
+
+    display:none;
+
+    height:100vh;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:42px;
+
+    font-weight:600;
+
+}
+
+/* ---------- Results ---------- */
+
+#results{
+
+    display:none;
+
+}
+
+/* ---------- Header ---------- */
+
+header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+    padding:20px 35px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.smallLogo{
+
+    font-size:36px;
+
+    font-weight:bold;
+
+}
+
+.topSearch{
+
+    flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    border:1px solid #ddd;
+
+    border-radius:30px;
+
+    padding:12px 18px;
+
+}
+
+.topSearch input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    font-size:16px;
+
+    padding:0 12px;
+
+}
+
+/* ---------- Tabs ---------- */
+
+.tabs{
+
+    display:flex;
+
+    gap:35px;
+
+    padding:18px 95px;
+
+    border-bottom:1px solid #eee;
+
+    color:#5f6368;
+
+}
+
+.active{
+
+    color:#1a73e8;
+
+    border-bottom:3px solid #1a73e8;
+
+    padding-bottom:8px;
+
+}
+
+.count{
+
+    padding:18px 95px;
+
+    color:#70757a;
+
+}
+
+h2{
+
+    padding:0 95px;
+
+}
+
+h3{
+
+    padding:10px 95px 30px;
+
+    color:#d63384;
+
+}
+
+/* ---------- Layout ---------- */
+
+.main{
+
+    display:flex;
+
+    gap:30px;
+
+    padding:0 40px 40px;
+
+}
+
+/* ---------- Gallery ---------- */
+
+.gallery{
+
+    flex:2;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    grid-auto-rows:220px;
+
+    gap:15px;
+
+}
+
+.gallery img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.gallery img:hover{
+
+    transform:scale(1.03);
+
+}
+
+.wide{
+
+    grid-column:span 2;
+
+}
+
+.tall{
+
+    grid-row:span 2;
+
+}
+
+/* ---------- Preview ---------- */
+
+.preview{
+
+    width:380px;
+
+    position:sticky;
+
+    top:20px;
+
+    background:white;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+
+}
+
+.preview img{
+
+    width:100%;
+
+    border-radius:16px;
+
+}
+
+#caption{
+
+    text-align:center;
+
+    margin-top:18px;
+
+    color:#444;
+
+}
+
+/* ---------- Mobile ---------- */
+
+@media(max-width:900px){
+
+.main{
+
+    flex-direction:column;
+
+}
+
+.preview{
+
+    width:100%;
+
+    position:relative;
+
+}
+
+.gallery{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+.logo{
+
+    font-size:70px;
+
+}
+
+.searchBox{
+
+    width:92%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= SEARCH PAGE ================= -->
+
+<div id="searchPage">
+
+    <div class="logo">
+
+        <span class="blue">G</span>
+        <span class="red">o</span>
+        <span class="yellow">o</span>
+        <span class="blue">g</span>
+        <span class="green">l</span>
+        <span class="red">e</span>
+
+    </div>
+
+    <div class="searchBox">
+
+        <span>🔍</span>
+
+        <input
+        type="text"
+        value="Who is my favourite person?"
+        readonly>
+
+        <span>🎤</span>
+
+        <span>📷</span>
+
+    </div>
+
+    <div class="buttons">
+
+        <button onclick="startSearch()">
+
+            Google Search
+
+        </button>
+
+        <button>
+
+            I'm Feeling Lucky
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= LOADING ================= -->
+
+<div id="loading">
+
+Searching...
+
+</div>
+
+
+
+
+<!-- ================= RESULTS ================= -->
+
+<div id="results">
+
+
+<header>
+
+<div class="smallLogo">
+
+<span class="blue">G</span>
+<span class="red">o</span>
+<span class="yellow">o</span>
+<span class="blue">g</span>
+<span class="green">l</span>
+<span class="red">e</span>
+
+</div>
+
+
+<div class="topSearch">
+
+<span>🔍</span>
+
+<input
+type="text"
+value="Who is my favourite person?"
+readonly>
+
+<span>🎤</span>
+
+<span>📷</span>
+
+</div>
+
+</header>
+
+
+
+<div class="tabs">
+
+<span>All</span>
+
+<span class="active">Images</span>
+
+<span>Videos</span>
+
+<span>News</span>
+
+<span>Maps</span>
+
+</div>
+
+
+<p class="count">
+
+About 8 results (0.18 seconds)
+
+</p>
+
+
+<h2>
+
+Images for "Who is my favourite person?"
+
+</h2>
+
+<h3>
+
+❤️ You, obviously ❤️
+
+</h3>
+
+
+
+<div class="main">
+
+
+
+<div class="gallery">
+
+<img 
+src="images/img1.jpg"
+onclick="showImage(this,'❤️ '')">
+
+<img
+src="images/img2.jpg"
+onclick="showImage(this,'🌸 ')">
+
+<img class="tall"
+src="images/img3.jpg"
+onclick="showImage(this,'❤️ ')">
+
+<img
+src="images/img4.jpg"
+onclick="showImage(this,'✨ ')">
+
+<img
+src="images/img5.jpg"
+onclick="showImage(this,'☀️ ')">
+
+<img 
+src="images/img6.jpg"
+onclick="showImage(this,'❤️ ')">
+
+<img
+src="images/img7.jpg"
+onclick="showImage(this,'💕')">
+
+<img class="tall"
+src="images/img8.jpg"
+onclick="showImage(this,'🌷 ')">
+
+</div>
+
+
+
+
+<div class="preview">
+
+<img
+id="previewImage"
+src="images/img1.jpg">
+
+<h2 id="caption">
+
+❤️ My favourite smile
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+<script>
+
+// =======================
+// START SEARCH
+// =======================
+
+function startSearch() {
+
+    document.getElementById("searchPage").style.display = "none";
+
+    document.getElementById("loading").style.display = "flex";
+
+    setTimeout(function () {
+
+        document.getElementById("loading").style.display = "none";
+
+        document.getElementById("results").style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }, 1000);
+
+}
+
+
+// =======================
+// IMAGE PREVIEW
+// =======================
+
+const previewImage = document.getElementById("previewImage");
+const caption = document.getElementById("caption");
+
+function showImage(img, text) {
+
+    // Fade Out
+    previewImage.style.opacity = "0";
+
+    setTimeout(function () {
+
+        previewImage.src = img.src;
+        caption.innerHTML = text;
+
+        previewImage.style.opacity = "1";
+
+    }, 250);
+
+    highlightImage(img);
+
+    floatingHeart();
+
+}
+
+
+
+// =======================
+// HIGHLIGHT SELECTED IMAGE
+// =======================
+
+function highlightImage(selected){
+
+    const images = document.querySelectorAll(".gallery img");
+
+    images.forEach(function(image){
+
+        image.style.border = "3px solid transparent";
+
+    });
+
+    selected.style.border = "3px solid #4285F4";
+
+}
+
+
+
+// =======================
+// FLOATING HEART
+// =======================
+
+function floatingHeart(){
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    heart.innerHTML = "❤️";
+
+    heart.style.left = (window.innerWidth - 320) + "px";
+
+    heart.style.top = (window.scrollY + 350) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(function(){
+
+        heart.remove();
+
+    },1500);
+
+}
+
+
+
+// =======================
+// DEFAULT SELECTED IMAGE
+// =======================
+
+window.onload = function(){
+
+    const firstImage = document.querySelector(".gallery img");
+
+    if(firstImage){
+
+        highlightImage(firstImage);
+
+    }
+
+};
+
+
+
+</script>
+
+</body>
+
+</html>
